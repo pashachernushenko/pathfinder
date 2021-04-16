@@ -32,19 +32,19 @@ void mx_hash_fill(char **islands, char **line, int *cnt) {
 }
 
 //fill matrix
-void mx_matrix_fill(int **matrix, char *s_weight, char **points, int size, char **islands) {
+void mx_matrix_fill(int **matrix, char *s_weight, char **points, char **islands) {
     //get index and weight
     int x = mx_get_idx(islands, points[0]);
     int y = mx_get_idx(islands, points[1]);
     int weight = mx_atoi(s_weight);
     //fill matrix
     matrix[x][y] = weight;
-    // matrix[y][x] = weight;
+    matrix[y][x] = weight;
 }
 
 
 //fill hash table and matrix for algorithm
-void mx_handle_input(char **islands, int fd, int size, int **matrix) {
+void mx_handle_input(char **islands, int fd, int **matrix) {
     //read line until EOF
     char *line = mx_strnew(100);
     int cnt = 0;
@@ -53,7 +53,7 @@ void mx_handle_input(char **islands, int fd, int size, int **matrix) {
         char **a = mx_strsplit(line, ',');
         char **b = mx_strsplit(a[0], '-');
         mx_hash_fill(islands, b, &cnt);
-        mx_matrix_fill(matrix, a[1], b, size, islands);
+        mx_matrix_fill(matrix, a[1], b, islands);
         mx_del_strarr(&a);
         mx_del_strarr(&b);
     }

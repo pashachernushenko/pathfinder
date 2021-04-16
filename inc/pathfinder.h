@@ -7,15 +7,15 @@
 /*--- Preprocessing --- */
 int mx_get_size(int fd);
 char **mx_hash_init(int size);
-void mx_handle_input(char **islands, int fd, int size, int **matrix);
+void mx_handle_input(char **islands, int fd, int **matrix);
 
 /*--- Algorithm --- */
 void mx_floyd_warshall_init(int **path, int **cost, int **adjMatrix, int size);
 void mx_floyd_warshall(int **path, int **cost, int **adjMatrix, int size);
 
 /*--- Output --- */
-void printPath(int **path, int v, int u);
-void printSolution(int **path, int size);
+void mx_print_route(int **path, int v, int u, char **islands);
+void mx_print_solution(int **path, int size, char **islands, int **cost, int **matrix);
 
 /*--- Utils --- */
 int **mx_arr_new(int size);
