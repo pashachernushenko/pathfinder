@@ -1,7 +1,7 @@
 #include "pathfinder.h"
 
 //get size variable
-int mx_get_size(int fd) {
+static int get_size(int fd) {
     char *line = mx_strnew(15);
     int res = 0;
     mx_read_line(&line, 5, '\n', fd);
@@ -10,7 +10,7 @@ int mx_get_size(int fd) {
 }
 
 //initialize NULL-terminated strings array of given size
-char **mx_hash_init(int size) {
+static char **hash_init(int size) {
     char **strings = malloc((size + 1) * sizeof(char*));
     for (int i = 0; i <= size; i++)
         strings[i] = NULL;
@@ -18,7 +18,7 @@ char **mx_hash_init(int size) {
 }
 
 //fill hash with given names
-void mx_hash_fill(char **islands, char **line, int *cnt) {
+static void hash_fill(char **islands, char **line, int *cnt) {
     //take first word. if not in arr yet, put it there
     if(!mx_is_in_arr(islands, line[0])) {
         islands[*cnt] = mx_strdup(line[0]);
@@ -32,19 +32,18 @@ void mx_hash_fill(char **islands, char **line, int *cnt) {
 }
 
 //fill matrix
-void mx_matrix_fill(int **matrix, char *s_weight, char **points, char **islands) {
+static void matrix_fill(int **weights, char *dist, char **points, char **islands) {
     //get index and weight
     int x = mx_get_idx(islands, points[0]);
     int y = mx_get_idx(islands, points[1]);
-    int weight = mx_atoi(s_weight);
+    int weight = mx_atoi(dist);
     //fill matrix
-    matrix[x][y] = weight;
-    matrix[y][x] = weight;
+    weights[x][y] = weight;
+    weights[y][x] = weight;
 }
 
-
 //fill hash table and matrix for algorithm
-void mx_handle_input(char **islands, int fd, int **matrix) {
+static void handle_input(char **islands, int fd, int **matrix) {
     //read line until EOF
     char *line = mx_strnew(100);
     int cnt = 0;
@@ -52,10 +51,28 @@ void mx_handle_input(char **islands, int fd, int **matrix) {
         //split by words
         char **a = mx_strsplit(line, ',');
         char **b = mx_strsplit(a[0], '-');
-        mx_hash_fill(islands, b, &cnt);
-        mx_matrix_fill(matrix, a[1], b, islands);
+        hash_fill(islands, b, &cnt);
+        matrix_fill(matrix, a[1], b, islands);
         mx_del_strarr(&a);
         mx_del_strarr(&b);
     }
     mx_strdel(&line);
+}
+
+t_data *mx_get_data(char *file) {
+    int fd = open(file, O_RDONLY);
+    //allocate data structure
+    t_data *data = malloc(sizeof(t_data));
+
+    data->size = get_size(fd);
+    //weight stores initial weights between islands
+    data->weight = mx_arr_new(data->size);
+    // "cost" and "path" stores shortest-cost/shortest-route information
+    data->cost = mx_arr_new(data->size);
+    data->path = mx_arr_new(data->size);
+    data->islands = hash_init(data->size);
+    //get hast table of island names and weights between them
+    handle_input(data->islands, fd, data->weight);
+    close(fd);
+    return data;
 }

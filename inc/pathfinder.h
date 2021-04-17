@@ -4,18 +4,23 @@
 #include <fcntl.h>
 #include "libmx.h"
 
+//data structure
+typedef struct  s_data {
+    int size;
+    char **islands;
+    int **weight;
+    int **cost;
+    int **path;
+}               t_data;
+
 /*--- Preprocessing --- */
-int mx_get_size(int fd);
-char **mx_hash_init(int size);
-void mx_handle_input(char **islands, int fd, int **matrix);
+t_data *mx_get_data(char *file);
 
 /*--- Algorithm --- */
-void mx_floyd_warshall_init(int **path, int **cost, int **adjMatrix, int size);
-void mx_floyd_warshall(int **path, int **cost, int **adjMatrix, int size);
+void mx_floyd_warshall(t_data *data);
 
 /*--- Output --- */
-void mx_print_route(int **path, int v, int u, char **islands);
-void mx_print_solution(int **path, int size, char **islands, int **cost, int **matrix);
+void mx_print_solution(t_data *data);
 
 /*--- Utils --- */
 int **mx_arr_new(int size);

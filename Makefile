@@ -5,8 +5,9 @@ SDIR = src
 LDIR = libmx
 #compiler settings
 CC = clang
-CFLAGS = -I $(IDIR) -I $(LDIR)/$(IDIR)
-CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -I $(IDIR) -I $(LDIR)/$(IDIR)
+CFLAGS = -std=c11
+CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+FLAGS = $(CFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
 #dependencies
 NAME = pathfinder
 LIB = libmx.a
@@ -28,11 +29,11 @@ $(LDIR)/$(LIB):
 #make objects
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	mkdir -p obj
-	$(CC) $(CCFLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 #make excecutable
 $(NAME): $(OBJS) $(LDIR)/$(LIB)
-	$(CC) $(CCFLAGS) $^ -o $@
+	$(CC) $(FLAGS) $^ -o $@
 
 .PHONY: clean uninstall reinstall
 

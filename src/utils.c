@@ -11,7 +11,7 @@ int **mx_arr_new(int size) {
             if (i == j)
                 arr[i][j] = 0;
             else
-                arr[i][j] = 999;
+                arr[i][j] = INT_MAX;
         }
     }
     return arr;
@@ -27,6 +27,7 @@ int mx_get_idx(char **arr, char *name) {
     }
     return -1;
 }
+
 //get island name by index
 char *mx_get_name(char **arr, int idx) {
     return arr[idx];
