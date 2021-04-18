@@ -6,6 +6,12 @@ int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
 
     static char *buff;
     int buf_pos = 0, line_pos = 0;
+    //call with lineptr "end" to free mx_readline buffer
+    if (!mx_strcmp(*lineptr, "end")) {
+        mx_strdel(&buff);
+        free(buff);
+        return -3;
+    }
     //clean lineptr
     for (int i = 0; (*lineptr)[i] != '\0'; i++)
         (*lineptr)[i] = '\0';
@@ -13,6 +19,7 @@ int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd) {
     while (buff == NULL || buff[buf_pos] != delim) {
         //fill buffer
         if (buff == NULL || *buff == '\0') {
+            mx_strdel(&buff);
             buff = mx_strnew(buf_size);
             if(!read(fd, buff, buf_size))
                 return line_pos;

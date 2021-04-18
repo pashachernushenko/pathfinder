@@ -4,6 +4,7 @@
 static int get_size(int fd, const char *filename) {
     char *line = mx_strnew(15);
     int res = 0;
+    
     if(!mx_read_line(&line, 5, '\n', fd))
         mx_check_size(filename);
     mx_check_length(line, 1);
@@ -66,6 +67,8 @@ static void handle_input(t_data *data, int fd) {
         mx_del_strarr(&a);
         mx_del_strarr(&b);
     }
+    char *end = "end";
+    mx_read_line(&end, 5, '\n', fd);
     mx_strdel(&line);
     mx_check_islands_num(cnt, data->size, 1);
 }

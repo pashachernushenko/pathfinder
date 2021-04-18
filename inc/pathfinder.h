@@ -22,7 +22,6 @@ void mx_floyd_warshall(t_data *data);
 /*--- Output ---*/
 void mx_print_solution(t_data *data);
 
-
 /*--- Utils ---*/
 int **mx_arr_new(int size);
 int mx_get_idx(char **arr, char *name);
@@ -39,3 +38,4 @@ void mx_check_line( const char *island1, const char *island2,
 void mx_check_islands_num(int size_so_far, int size_max, int last);
 void mx_check_duplicates(int weight_so_far);
 void mx_check_sum(int *sum_so_far, int next);
+void mx_free_data(t_data *data);

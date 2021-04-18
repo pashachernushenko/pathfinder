@@ -17,6 +17,16 @@ int **mx_arr_new(int size) {
     return arr;
 }
 
+//frees allocated 2-D array
+static void free_arr(int **arr, int size) {
+    for(int i = 0; i < size; i++) {
+        free(arr[i]);
+        arr[i] = NULL;
+    }
+    free(arr);
+    arr = NULL;
+}
+
 //get island index by name
 int mx_get_idx(char **arr, char *name) {
     int idx = 0;
@@ -39,4 +49,15 @@ bool mx_is_in_arr(char **arr, char *str) {
         if(!mx_strcmp(str, arr[i]))
             return true;
     return false;
+}
+
+//frees data structure
+void mx_free_data(t_data *data) {
+    mx_del_strarr(&(data->islands));
+    data->islands = NULL;
+    free_arr(data->weight, data->size);
+    free_arr(data->path, data->size);
+    free_arr(data->cost, data->size);
+    free(data);
+    data = NULL;
 }
