@@ -7,7 +7,7 @@ LDIR = libmx
 CC = clang
 CFLAGS = -std=c11
 CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
-FLAGS = $(CFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
+FLAGS = $(CCFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
 #dependencies
 NAME = pathfinder
 LIB = libmx.a
