@@ -3,10 +3,4 @@ obj/
 .vscode/
 pathfinder
 #test cases
-empty
-easy
-medium
-hard
-extra
-example1
-example2
+test/

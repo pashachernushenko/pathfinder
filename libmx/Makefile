@@ -23,7 +23,7 @@ all: $(NAME)
 #make objects
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	@mkdir -p obj
-	@printf "\33[2KCompiling \33[0;32m$<\33[m\r"
+	@printf "\33[2KCompiling $(NAME) \33[0;32m$<\33[m\r"
 	@$(CC) -c -o $@ $< $(CCFLAGS)
 #make library
 $(NAME): $(OBJS)
@@ -40,12 +40,12 @@ $(TEST): $(NAME)
 .PHONY: clean uninstall reinstall
 #delete all files
 uninstall: clean
-	@printf "\r\33[2K\33[0;33mUninstalling library...\33[m\n"
+	@printf "\r\33[2K\33[0;33mUninstalling $(NAME) library...\33[m\n"
 	@rm -f $(NAME) $(TEST)
 	@rm -f *.a
 #remove all temporary files
 clean:
-	@printf "\r\33[2K\33[0;33mRemoving temporary files...\33[m\n"
+	@printf "\r\33[2K\33[0;33mRemoving temporary $(NAME) files...\33[m\n"
 	@rm -rf $(ODIR)
 #rebuild project
 reinstall: uninstall all

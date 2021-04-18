@@ -22,6 +22,7 @@ void mx_floyd_warshall(t_data *data);
 /*--- Output ---*/
 void mx_print_solution(t_data *data);
 
+
 /*--- Utils ---*/
 int **mx_arr_new(int size);
 int mx_get_idx(char **arr, char *name);
