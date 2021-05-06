@@ -17,6 +17,13 @@ int **mx_arr_new(int size) {
     return arr;
 }
 
+//allocate square 2-D linked list array
+t_list ***mx_arr_list_new(int size) {
+    t_list ***arr = malloc(size * sizeof(t_list**));
+    for (int i = 0; i < size; i++)
+        arr[i] = malloc(size * sizeof(t_list*));
+    return arr;
+}
 //frees allocated 2-D array
 static void free_arr(int **arr, int size) {
     for(int i = 0; i < size; i++) {
@@ -60,4 +67,11 @@ void mx_free_data(t_data *data) {
     free_arr(data->cost, data->size);
     free(data);
     data = NULL;
+}
+
+//allocates integer value in the heap memory (for linked list usage)
+int *mx_put_val(int value) {
+    int *pVal = malloc(sizeof(int));
+    *pVal = value;
+    return pVal;
 }

@@ -7,11 +7,11 @@ static void floyd_warshall_init(t_data *data) {
             // initially, cost would be the same as the weight of the edge
             data->cost[v][u] = data->weight[v][u];
             if (v == u)
-                data->path[v][u] = 0;
+                data->path[v][u] = mx_create_node(mx_put_val(0));
             else if (data->cost[v][u] != INT_MAX)
-                data->path[v][u] = v;
+                data->path[v][u] = mx_create_node(mx_put_val(v));
             else
-                data->path[v][u] = -1;
+                data->path[v][u] = mx_create_node(mx_put_val(-1));
         }
     }
 }
@@ -26,9 +26,17 @@ void mx_floyd_warshall(t_data *data) {
                 if (data->cost[v][k] != INT_MAX
                     && data->cost[k][u] != INT_MAX
                     && data->cost[v][k] + data->cost[k][u] < data->cost[v][u]) {
-                    data->cost[v][u] = data->cost[v][k] + data->cost[k][u];
-                    data->path[v][u] = data->path[k][u];
-                }
+                        data->cost[v][u] = data->cost[v][k] + data->cost[k][u];
+                        int val = *(int*)((data->path[k][u])->data);
+                        mx_clear_list(&(data->path[v][u]));
+                        mx_push_back(&(data->path[v][u]), mx_put_val(val));
+                } else if (data->cost[v][k] != INT_MAX
+                    && data->cost[k][u] != INT_MAX
+                    && data->cost[v][k] + data->cost[k][u] == data->cost[v][u]
+                    && k != u && k != v) {
+                        int val = *(int*)((data->path[k][u])->data);
+                        mx_push_back(&(data->path[v][u]), mx_put_val(val)); 
+                    }
             }
         }
     }

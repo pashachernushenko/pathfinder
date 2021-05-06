@@ -106,6 +106,7 @@
     //advanced
     int mx_list_size(t_list *list);                                                         //DONE
     t_list *mx_sort_list(t_list *lst, bool(*cmp)(void *, void *));                          //DONE
+    void mx_clear_list(t_list **list);
 
 /*------------------*
  *   EXTRA PACK     *

@@ -10,7 +10,7 @@ typedef struct  s_data {
     char **islands;
     int **weight;
     int **cost;
-    int **path;
+    t_list ***path;
 }               t_data;
 
 /*--- Preprocessing ---*/
@@ -24,9 +24,11 @@ void mx_print_solution(t_data *data);
 
 /*--- Utils ---*/
 int **mx_arr_new(int size);
+t_list ***mx_arr_list_new(int size);
 int mx_get_idx(char **arr, char *name);
 char *mx_get_name(char **arr, int idx);
 bool mx_is_in_arr(char **arr, char *str);
+int *mx_put_val(int value);
 
 /*--- Errors ---*/
 void mx_check_args(int argc);

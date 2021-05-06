@@ -84,7 +84,7 @@ t_data *mx_get_data(char *file) {
     data->weight = mx_arr_new(data->size);
     // "cost" and "path" stores shortest-cost/shortest-route information
     data->cost = mx_arr_new(data->size);
-    data->path = mx_arr_new(data->size);
+    data->path = mx_arr_list_new(data->size);
     data->islands = hash_init(data->size);
     //get hast table of island names and weights between them
     handle_input(data, fd);

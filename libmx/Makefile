@@ -5,7 +5,7 @@ SDIR = src
 #compiler settings
 CC=clang
 CFLAGS=-I $(IDIR)
-CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -I $(IDIR)
+CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -g -I $(IDIR)
 #dependencies
 NAME = libmx.a
 TEST = test

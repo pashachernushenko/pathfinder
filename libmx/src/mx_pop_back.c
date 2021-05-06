@@ -7,6 +7,7 @@ void mx_pop_back(t_list **head) {
     t_list *current = *head;
 
     if ((*head)->next == NULL) {
+        free((*head)->data);
         (*head)->data = NULL;
         free(*head);
         *head = NULL;
@@ -14,8 +15,9 @@ void mx_pop_back(t_list **head) {
     else {
         while (current->next->next != NULL)
             current = current->next;
-    }
+    free(current->next->data);
     current->next->data = NULL;
     free(current->next);
     current->next = NULL;
+    }
 }
